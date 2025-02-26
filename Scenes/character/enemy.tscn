@@ -1,0 +1,110 @@
+[gd_scene load_steps=10 format=3 uid="uid://th4f6cuet3tt"]
+
+[ext_resource type="Texture2D" uid="uid://bo8c5fe36wq8r" path="res://Assets/Imports/brackeys_platformer_assets/sprites/slime_green.png" id="1_83156"]
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_agwyr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7kyli"]
+size = Vector2(14, 13)
+
+[sub_resource type="Animation" id="Animation_ewanm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="Animation" id="Animation_wjvft"]
+resource_name = "death"
+length = 0.07
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="Animation" id="Animation_jxtsh"]
+resource_name = "walk"
+length = 1.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 4, 5, 4, 2, 4, 5, 4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wef6m"]
+_data = {
+"RESET": SubResource("Animation_ewanm"),
+"death": SubResource("Animation_wjvft"),
+"walk": SubResource("Animation_jxtsh")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmryy"]
+size = Vector2(17, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3y86"]
+size = Vector2(14, 1)
+
+[node name="enemy" type="CharacterBody2D"]
+script = ExtResource("1_agwyr")
+special = true
+special_color = Color(1, 0.113725, 0.737255, 1)
+
+[node name="body" type="Sprite2D" parent="."]
+texture = ExtResource("1_83156")
+hframes = 4
+vframes = 3
+frame = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_7kyli")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wef6m")
+}
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(10, 0)
+
+[node name="kill player" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kill player"]
+position = Vector2(0.5, 9)
+shape = SubResource("RectangleShape2D_nmryy")
+
+[node name="kill enemy" type="Area2D" parent="kill player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="kill player/kill enemy"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_h3y86")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="kill player" to="." method="_on_kill_player_body_entered"]
+[connection signal="body_entered" from="kill player/kill enemy" to="." method="_on_kill_enemy_body_entered"]
