@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://dapotja0mvu7x"]
+[gd_scene load_steps=20 format=3 uid="uid://dapotja0mvu7x"]
 
 [ext_resource type="Texture2D" uid="uid://b1sr0wik82x1v" path="res://Assets/Imports/brackeys_platformer_assets/sprites/world_tileset.png" id="1_yra7v"]
 [ext_resource type="PackedScene" uid="uid://dlvdykpe7x7gj" path="res://Scenes/character/player.tscn" id="2_10dsn"]
 [ext_resource type="PackedScene" uid="uid://dyneu331nri6" path="res://Scenes/UI/ui.tscn" id="3_e3u80"]
 [ext_resource type="PackedScene" uid="uid://bvqp5sc1rneev" path="res://Scenes/coll/coin.tscn" id="4_h1vmg"]
 [ext_resource type="PackedScene" uid="uid://th4f6cuet3tt" path="res://Scenes/character/enemy.tscn" id="5_hsv5s"]
+[ext_resource type="PackedScene" uid="uid://cupe85bfq6t2l" path="res://Scenes/end_level.tscn" id="6_0fx1a"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gpy1d"]
 polygon = PackedVector2Array(-8, 1, 8, 1, 8, 8, -8, 8)
@@ -364,3 +365,7 @@ position = Vector2(256, -11)
 
 [node name="enemy2" parent="." instance=ExtResource("5_hsv5s")]
 position = Vector2(-248, 6)
+
+[node name="end_level" parent="." instance=ExtResource("6_0fx1a")]
+position = Vector2(-366, 928)
+scene = "res://Scenes/monde_1_2.tscn"

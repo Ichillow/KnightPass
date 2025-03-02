@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://fu0g2gqksc3w"]
+
+[ext_resource type="Texture2D" uid="uid://dslg16wc7adjp" path="res://Assets/Imports/AnimationSheet_Character.png" id="1_snngf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adhi4"]
+size = Vector2(16, 16)
+
+[node name="master" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_snngf")
+hframes = 8
+vframes = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_adhi4")

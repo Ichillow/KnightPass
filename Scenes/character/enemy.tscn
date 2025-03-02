@@ -71,7 +71,6 @@ size = Vector2(14, 1)
 
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_agwyr")
-special = true
 special_color = Color(1, 0.113725, 0.737255, 1)
 
 [node name="body" type="Sprite2D" parent="."]
